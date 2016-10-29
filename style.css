@@ -1,0 +1,27 @@
+body{
+	font-family:  sans-serif;
+	font-size: 14;
+	font-weight: 100;
+}
+
+div,button{
+	margin: 3px;
+	height: 25px;
+	border-radius:8px;
+	color: white;
+	text-align: center;
+}
+
+.sorts,.legend{
+	text-align: left;
+	color: black;
+}
+
+.sorts button{
+	color: black;
+}
+
+.legend button{
+	border: none; 
+}
+
