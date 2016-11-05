@@ -1,5 +1,5 @@
-var getUniqSubjects = function(students){
-	return students.map((d)=>d.subject).filter((s,i,a)=> a.indexOf(s) == i);
+var getSubjects = function(students){
+	return students.map((d)=>d.subject);
 }
 
 var sortBy = function(key){
@@ -39,7 +39,7 @@ var displayStudents = function (data,subjects) {
 	//Legend
 	var legend = container.append('div').classed('legend',true).text('Subjects:');
 
-	var subjectLegend = legend.selectAll('button').data(subjects);
+	var subjectLegend = legend.selectAll('button').data(colorScale.domain());
 
 	subjectLegend	
 		.enter()
@@ -49,7 +49,7 @@ var displayStudents = function (data,subjects) {
 }
 
 var parse = function(err,students){
-	var subjects = getUniqSubjects(students);
+	var subjects = getSubjects(students);
 	displayStudents(students,subjects);
 }
 
