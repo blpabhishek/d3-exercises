@@ -1,21 +1,29 @@
 var data = [20,30,40,60,20,70,10,20,90];
-var fun = function() {
+var randomNumberViz = function() {
 	data.push(Math.floor(Math.random()*100));
-	var body = d3.select('body');
-	var divs = body.selectAll('div').data(data);
+	var container = d3.select('.container');
+	var divs = container.selectAll('div').data(data);
 
-	var colors = d3.schemeCategory20c.slice(0,4);
+	var numberScale = d3.scaleLinear()
+		.domain([0,100])
+		.range([10,1000]);
+
+	var colorScale = d3.scaleLinear()
+		.domain([0,100])
+		.range(d3.schemeCategory20c);
 
 	divs.enter()
 		.append('div')
-		.style('width',function(d) {return (10*d)+'px';})
+		.style('width',function(d) {return numberScale(d)+'px';})
 		.style('height','25px')
-		.style('background-color',function(d,i){return colors[d.toString()[0]%4];})
+		.style('margin','4px')
+		.style('background-color',function(d,i){return colorScale(d);})
 		.text(function(d){return d;});
 
 	divs
-		.style('width',function(d) {return (10*d)+'px';})
-		.style('background-color',function(d,i){return colors[d.toString()[0]%4];})
+		.style('width',function(d) {return numberScale(d)+'px';})
+		.style('background-color',function(d,i){return colorScale(d);})
+		.style('margin','3px')
 		.text(function(d){return d;});
 
 	divs.exit().remove();
@@ -24,5 +32,5 @@ var fun = function() {
 }
 
 setInterval(function(){
-	fun();
+	randomNumberViz();
 },1000);
