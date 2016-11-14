@@ -15,9 +15,7 @@ var loadData = function() {
 	divs.enter()
 		.append('div')
 		.style('font-size',function(d){return fontScale(d)+"px";})
-		.style('line-height',function(d){return +lineHeight(d)+"px";})
-		.style('border-style','groove')
-		.style('border-width','thin')
+		.style('line-height',function(d){return +lineHeight(d)+"px";})	
 		.text(function(d){return d;});
 }
 
