@@ -6,16 +6,11 @@ var loadData = function() {
 
 	var fontScale = d3.scaleLinear()
 		.domain([0,10])
-		.range([12,120])
-
-	var lineHeight = d3.scaleLinear()
-		.domain([0,10])
-		.range([30,180])
+		.range(["italic bold 12px/30px Georgia, serif","italic bold 120px/180px Georgia, serif"])
 
 	divs.enter()
 		.append('div')
-		.style('font-size',function(d){return fontScale(d)+"px";})
-		.style('line-height',function(d){return +lineHeight(d)+"px";})	
+		.style('font',function(d){return fontScale(d);})
 		.text(function(d){return d;});
 }
 

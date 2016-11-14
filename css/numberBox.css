@@ -1,13 +1,7 @@
-body {
-	font-style: italic;
-	font-family:Georgia;
-	font-weight: bold;
-}
-
 .container div{
 	display: inline-block;
 	margin: 3px;
-	padding: 10px;
+	padding: 12px;
 	vertical-align: text-top;
 	border-style:groove;
 	border-width:thin;
