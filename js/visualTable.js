@@ -5,16 +5,30 @@ var loadData = function() {
 	var container = d3.select('.container');
 	var table = container.append('table');
 
-var addRow = function(title,scale,type){
-	type = type || 'td';
+var addHeader = function(title,scale){
+	var type = 'th';
 	var row  = table.append('tr');
 	var td = row.selectAll(type).data(title.concat(number))
 	td.enter()
 		.append(type)
-		.text(function(d,i){ if(i==0) return d; return scale(d);})
+		.text(function(d,i){ return i ? scale(d) : d ;})
+		.classed('header',true);
+}
+
+var addRow = function(title,scale,type){
+	var header = d3.selectAll('.header');
+	// type = type || 'td';
+	type = 'td';
+	var row  = table.append('tr');
+	var data = header.data();
+	data[0] = title[0];
+	var td = row.selectAll(type).data(data)
+	td.enter()
+		.append(type)
+		.text(function(d,i){ return i ? scale(d) : d ;})
 }	
 	
-addRow(title,d3.scaleIdentity() ,'th');
+addHeader(title,d3.scaleIdentity());
 addRow(['n'],d3.scaleIdentity());
 addRow(['n square'],d3.scalePow().exponent(2));
 addRow(['log(n)'],d3.scaleLog());

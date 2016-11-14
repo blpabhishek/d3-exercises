@@ -53,4 +53,4 @@ var parse = function(err,students){
 	displayStudents(students,subjects);
 }
 
-d3.json("./students.json",parse)
+d3.json("../json/students.json",parse)
