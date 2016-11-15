@@ -1,49 +1,28 @@
 var drawShapes = function() {
+	var width = 150;
 	var container = d3.select('.container');
 
-	var svg = container.append('svg');
-		svg.attr('width',600)
-			.attr('height',200);
+	var gemotricShapes = [{name:'line',x1:100,y1:0,x2:0,y2:100},
+				{name:'circle',cx:50,cy:50,r:50},
+				{name:'rect',x:0,y:0,r:50,width:100,height:100,rx:5,ry:5},
+				{name:'polygon',points:'50,0 0,100 100,100'},
+				];
 
-	var g = svg.append('g');
+	var svg = container.append('svg')
+		.attr('width',600)
+		.attr('height',200);
 
-	var line = g.append('line');
-		line.attr('x1',100)
-			.attr('y1',0)
-			.attr('x2',0)
-			.attr('y2',100)
-			.classed('line',true);
+	gemotricShapes.forEach(function(shape,index){
+		var group = svg.append('g')
+			.attr('transform','translate('+index * width +')');
 
-	var cg = svg.append('g');
+		var shap = group.append(shape.name)
+			.classed(shape.name,true);
 
-	cg.attr('transform','translate(150)')
-
-	var circle = cg.append('circle');
-		circle.attr('cx',50)
-			.attr('cy',50)
-			.attr('r',50)
-			.classed('circle',true);
-
-	var rg = svg.append('g');
-
-	rg.attr('transform','translate(300)')
-
-	var rect = rg.append('rect');
-		rect.attr('x',0)
-		.attr('y',0)
-		.attr('rx',5)
-		.attr('ry',5)
-		.attr('width',100)
-		.attr('height',100)
-		.classed('rect',true);
-
-	var tg = svg.append('g');
-
-	tg.attr('transform','translate(450)')
-
-	var rect = tg.append('polygon');
-		rect.attr('points','50,0 0,100 100,100 50,0')
-		.classed('polygon',true)
+		for(a in shape) 
+			shap.attr(a,shape[a]);
+		
+	});
 }
 
 window.onload = drawShapes;
