@@ -1,0 +1,18 @@
+.line{
+	stroke: black;
+}
+
+.circle{
+	fill:none;
+	stroke:red;
+}
+
+.rect{
+	fill:none;
+	stroke:blue;
+}
+
+.polygon{
+	fill:none;
+	stroke:green;
+}
