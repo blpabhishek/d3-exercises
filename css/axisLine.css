@@ -13,3 +13,10 @@ div{
 	stroke-width:1.5;
 	fill:none;
 }
+
+circle{
+	r:4;
+	stroke:steelblue;
+	stroke-width:1.5;
+	fill:white;
+}

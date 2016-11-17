@@ -60,7 +60,17 @@ var draw = function() {
 	    .attr('d', sinX)
 	    .classed('sinX',true);
 
+	var circle = lineGroup.selectAll('.line circle').data(linePoints)
+	circle.enter()
+		.append('circle')
+		.attr('cx',function(d) { return XScale(d.x/10);})
+    	.attr('cy',function(d) { return YScale(d.y/10);});
 
+    circle = lineGroup.selectAll('.sinX circle').data(linePoints);
+	circle.enter()
+		.append('circle')
+		.attr('cx',function(d) { return XScale(d.x/10);})
+    	.attr('cy',function(d) { return YScale((Math.sin(d.x)/10)+0.5);});
 }
 
 window.onload = draw;
