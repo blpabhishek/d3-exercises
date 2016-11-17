@@ -60,6 +60,7 @@ var draw = function() {
 	    .attr('d', sinX)
 	    .classed('sinX',true);
 
+
 }
 
 window.onload = draw;
