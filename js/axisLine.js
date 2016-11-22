@@ -12,9 +12,8 @@ var translate = function(x, y) {
     return 'translate(' + x + ',' + y + ')';
 }
 
-var draw = function(curve) {
+var draw = function() {
 	var container = d3.select('.container');
-	container.append('h3').text(curve);
 
 	var svg = container.append('svg')
 		.attr('width',width)
@@ -31,6 +30,16 @@ var draw = function(curve) {
 	var xAxis = d3.axisBottom(XScale);
     var yAxis = d3.axisLeft(YScale);
 
+    var line = d3.line()
+    	.x(function(d) { return XScale(d.x/range);})
+    	.y(function(d) { return YScale(d.y/range);})
+
+	var sinLine = d3.line()
+	.x(function(d){return XScale(d/range);})
+	.y(function(d){return YScale((Math.sin(d)/range)+0.5);})
+
+    var select  = container.select('select');
+
     svg.append('g')
         .call(xAxis)
         .classed('xAxis', true)
@@ -40,16 +49,6 @@ var draw = function(curve) {
         .call(yAxis)
         .classed('yAxis', true)
         .attr('transform', translate(margin, margin));
-
-	var line = d3.line()
-    	.x(function(d) { return XScale(d.x/range);})
-    	.y(function(d) { return YScale(d.y/range);})
-    	.curve(d3[curve]);
-
-    var sinX = d3.line()
-    	.x(function(d){return XScale(d/range);})
-    	.y(function(d){return YScale((Math.sin(d)/range)+0.5);})
-    	.curve(d3[curve]);
 
     var lineGroup =svg.append('g')
         .classed('lineGroup', true)
@@ -64,8 +63,16 @@ var draw = function(curve) {
 	var sinPath = lineGroup.append('path');
 
     sinPath.datum(data)
-	    .attr('d', sinX)
-	    .classed('sinX',true);
+	    .attr('d', sinLine)
+	    .classed('sinLine',true);
+
+	select.on('change', function() {
+		var curve = d3.select(this).property('value');
+		line.curve(d3[curve]);
+		sinLine.curve(d3[curve]);	
+		path.attr('d',line);
+		sinPath.attr('d',sinLine);
+	});
 
 	var circle = lineGroup.selectAll('.line circle').data(linePoints);
 	circle.enter()
@@ -73,16 +80,27 @@ var draw = function(curve) {
 		.attr('cx',function(d) { return XScale(d.x/range);})
     	.attr('cy',function(d) { return YScale(d.y/range);});
 
-    circle = lineGroup.selectAll('.sinX circle').data(data);
+    circle = lineGroup.selectAll('.sinLine circle').data(data);
 	circle.enter()
 		.append('circle')
 		.attr('cx',function(d) { return XScale(d/range);})
     	.attr('cy',function(d) { return YScale((Math.sin(d)/range)+0.5);});
 }
 
-var main = function(){
+var loadAllEffects = function(){
 	var curves = Object.keys(d3).filter((e)=>e.match('curve'));
-	curves.forEach(draw);
+
+	var container = d3.select('.container');
+	var div = container.append('div');
+	var select  = div.append('select');
+	select.classed('drop-down',true)
+	select.selectAll('option').data(curves)
+		.enter()
+		.append('option')
+		.attr('value',function(d){return d;})
+		.text(function(d){return d;})
+
+	draw();
 }
 
-window.onload = main;
+window.onload = loadAllEffects;
