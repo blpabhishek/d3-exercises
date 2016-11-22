@@ -38,8 +38,6 @@ var draw = function() {
 	.x(function(d){return XScale(d/range);})
 	.y(function(d){return YScale((Math.sin(d)/range)+0.5);})
 
-    var select  = container.select('select');
-
     svg.append('g')
         .call(xAxis)
         .classed('xAxis', true)
@@ -66,6 +64,8 @@ var draw = function() {
 	    .attr('d', sinLine)
 	    .classed('sinLine',true);
 
+	var select  = container.select('select');
+	    
 	select.on('change', function() {
 		var curve = d3.select(this).property('value');
 		line.curve(d3[curve]);

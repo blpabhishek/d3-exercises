@@ -1,0 +1,29 @@
+.container{
+	margin: auto;
+	text-align: center;
+}
+
+h3{
+	font-weight: 200;
+	font-style: italic;
+}
+
+.area{
+	stroke:steelblue;
+	stroke-width:2;
+	fill:steelblue;
+	opacity: 0.3;
+}
+
+.line{
+	stroke:steelblue;
+	stroke-width:2;
+	fill:none;
+}
+
+circle{
+	r:5;
+	stroke:steelblue;
+	stroke-width:1;
+	fill: white;
+}
