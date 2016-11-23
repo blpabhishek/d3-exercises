@@ -38,7 +38,7 @@ var toRadian = function(d){
 
 var loadStyles = function(){
 	var range = [{innerRadius:0,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(360)},
-				{innerRadius:75,outerRadius:150,startAngle:toRadian(180),endAngle:toRadian(360)},	
+				{innerRadius:75,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(180)},	
 				{innerRadius:0,outerRadius:150,startAngle:toRadian(180),endAngle:toRadian(360)},
 				{innerRadius:75,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(360)}];
 
