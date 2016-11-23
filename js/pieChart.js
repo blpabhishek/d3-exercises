@@ -12,9 +12,7 @@ var draw = function(option) {
 		.append('g')
 		.attr('transform','translate(300,150)');
 
-	var colorScale = d3.scaleOrdinal()
-		.domain([0,10])
-		.range(d3.schemeCategory20);
+	var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
 
 	var arc = d3.arc()             
         .outerRadius(option.outerRadius)
@@ -22,6 +20,7 @@ var draw = function(option) {
 
 	var pie = d3.pie()
 	.value(function(d){return d;})
+	.sort(null)
 	.startAngle(option.startAngle)
 	.endAngle(option.endAngle);
 
@@ -39,7 +38,7 @@ var toRadian = function(d){
 var loadStyles = function(){
 	var range = [{innerRadius:0,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(360)},
 				{innerRadius:75,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(180)},	
-				{innerRadius:0,outerRadius:150,startAngle:toRadian(180),endAngle:toRadian(360)},
+				{innerRadius:0,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(180)},
 				{innerRadius:75,outerRadius:150,startAngle:toRadian(0),endAngle:toRadian(360)}];
 
 	range.forEach(draw);
