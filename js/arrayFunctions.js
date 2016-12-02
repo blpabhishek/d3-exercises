@@ -27,11 +27,17 @@ var drawChart = function() {
 		.domain([0,data.length])
 		.range([0,innerWidth])
 
+	XScale = d3.scaleBand()
+		.domain(data)
+		.range([0,innerWidth])
+		.paddingInner([0.4])
+		.paddingOuter([0.5]);
+
 	YScale = d3.scaleLinear()
 		.domain([0,d3.sum(data)])
 		.range([innerHeight,0]);
 
-	var xAxis = d3.axisBottom(XScale);
+	var xAxis = d3.axisBottom(XScale).tickFormat(function(d,i){return i+1});
     var yAxis = d3.axisLeft(YScale);
 
     svg.append('g')
@@ -48,17 +54,15 @@ var drawChart = function() {
         .classed('data', true)
         .attr('transform', translate(margin, margin)) 
 
-    var barWidth = innerWidth / (data.length * 2);
-
-    var alignBarSpace = barWidth/2;
-
     var bars = dataGroup.selectAll('rect').data(data);
 
 	bars.enter().append("rect")
-      .attr("x", function(d,index) { return XScale(index+1)-alignBarSpace;})
-      .attr("y", function(d) { return YScale(d); })
+      .attr("x", function(d,index) { return XScale(d);})
+      .attr("y", function(d) { return YScale(d);})
       .attr("height", function(d) { return innerHeight - YScale(d); })
-      .attr("width", barWidth)
+      .attr("width", XScale.bandwidth())
+
+    bars.exit().remove();
 
    addButtons();
 }
@@ -66,7 +70,7 @@ var drawChart = function() {
 var click = function(value,group){
 	var response;
 	if(value=='quantile')
-		response = prompt('Enter the quantile range 0-1','0.5');
+		response = prompt('Enter the quantile range 0-1','0');
 	
 	var lineData = d3[value](data,response);
 	var linePoint = lineData.map ? lineData.map((d)=>YScale(d)):[YScale(lineData)];
